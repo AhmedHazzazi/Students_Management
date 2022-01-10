@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const ManagController = require('../controllers/Management');
+const ManagController = require('../controllers/managmenet');
 // find all tasks
 router.get('/', ManagController.index);
 
