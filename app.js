@@ -7,11 +7,23 @@ const router = require('./routes/managmenet');
 app.use(methodOverride('_method', {methods: ['POST', 'GET']}));
 app.set("view engine", "ejs");
 
+app.use('/', router);
+
 app.use(express.urlencoded({extended: true}));
 
-mongoose.connect('mongodb://localhost:27017/Students_DB', {useNewUrlParser: true, useUnifiedTopology: true});
+// Database Connect
+if (process.env.NODE_ENV === "test")
+    mongoose.connect('mongodb://localhost:27017/Students_DB', 
+        { useNewUrlParser: true, useUnifiedTopology: false }
+    );
+else
+    mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/Students_DB', 
+        { useNewUrlParser: true, useUnifiedTopology: false }
+    );
 
-app.use('/', router);
+mongoose.set("useCreateIndex", true);
+const db = mongoose.connection;
+// mongoose.connect('mongodb://localhost:27017/Students_DB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Port
 // app.listen(3000, ()=>console.log('express started!'));
