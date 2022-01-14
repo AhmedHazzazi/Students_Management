@@ -23,6 +23,9 @@ else
 
 mongoose.set("useCreateIndex", true);
 const db = mongoose.connection;
+db.once("open", () => {
+    console.log("Successfully Connected To MongoDB Using Mongoose!");
+});
 // mongoose.connect('mongodb://localhost:27017/Students_DB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Port
